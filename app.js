@@ -261,10 +261,11 @@
     var y0 = book.position.y;
     addTween(0.6, function (k) { book.position.y = y0 + 0.35 * k; });
     addTween(0.6, function (k) { book.position.y = y0 + 0.35 * (1 - k); }, null, 0.6);
-    var c0 = coverPivot.rotation.z, c1 = -2.95;
+    var c0 = coverPivot.rotation.z, c1 = 2.95;
     addTween(1.4, function (k) { coverPivot.rotation.z = c0 + (c1 - c0) * k; }, null, 0.35);
     flipPages.forEach(function (pg, idx) {
-      addTween(0.8, function (k) { pg.rotation.z = -2.9 * k; }, null, 1.1 + idx * 0.22);
+      var target = 2.9 - idx * 0.18;
+      addTween(0.8, function (k) { pg.rotation.z = target * k; }, null, 1.1 + idx * 0.22);
     });
     setCard(drawAnswer());
     flash(null, 1.3);
@@ -284,8 +285,9 @@
     el('hint').textContent = '重新洗牌……';
     addTween(0.4, function (k) { cardMat.opacity = 1 - k; });
     flipPages.forEach(function (pg, idx) {
-      addTween(0.5, function (k) { pg.rotation.z = -2.9 * (1 - k); }, null, idx * 0.1);
-      addTween(0.6, function (k) { pg.rotation.z = -2.9 * k; }, null, 0.9 + idx * 0.2);
+      var target = 2.9 - idx * 0.18;
+      addTween(0.5, function (k) { pg.rotation.z = target * (1 - k); }, null, idx * 0.1);
+      addTween(0.6, function (k) { pg.rotation.z = target * k; }, null, 0.9 + idx * 0.2);
     });
     setCard(drawAnswer());
     flash(null, 1.0);
