@@ -44,15 +44,34 @@
 
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0x070b16);
-  scene.fog = new THREE.Fog(0x070b16, 14, 32);
+  scene.fog = new THREE.Fog(0x070b16, 16, 42);
 
   var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-  var camFar = new THREE.Vector3(0, 3.6, 7.4);
-  var camNear = new THREE.Vector3(0, 2.7, 5.6);
+  var camFar = new THREE.Vector3();
+  var camNear = new THREE.Vector3();
   var camTmp = new THREE.Vector3();
   var dolly = 0;
-  camera.position.copy(camFar);
   var camTarget = new THREE.Vector3(0, 1.1, 0);
+  function layoutCamera() {
+    var aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = aspect;
+    if (aspect < 1) {
+      // 竖屏：加大视场角并拉远镜头，保证整本书（含翻开的封面）入画
+      camera.fov = 58;
+      var s = Math.min(1.35 / aspect, 2.1);
+      camFar.set(0, 3.6 * s, 7.4 * s);
+      camNear.set(0, 2.7 * s, 5.6 * s);
+      camTarget.set(0, 1.25, 0);
+    } else {
+      camera.fov = 45;
+      camFar.set(0, 3.6, 7.4);
+      camNear.set(0, 2.7, 5.6);
+      camTarget.set(0, 1.1, 0);
+    }
+    camera.updateProjectionMatrix();
+  }
+  layoutCamera();
+  camera.position.copy(camFar);
   camera.lookAt(camTarget);
 
   /* ---------- 灯光 ---------- */
@@ -479,8 +498,7 @@
   });
 
   window.addEventListener('resize', function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    layoutCamera();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
