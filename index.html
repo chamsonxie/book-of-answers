@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>答案之书 · The Book of Answers</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #070b16; }
+  #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: pointer; }
+  .ui { position: fixed; inset: 0; pointer-events: none; z-index: 10;
+        font-family: "STKaiti","KaiTi","楷体",Georgia,serif; color: #e9cf8f; }
+  header { position: absolute; top: 30px; left: 0; right: 0; text-align: center; }
+  header h1 { font-size: 44px; letter-spacing: 14px; text-indent: 14px; font-weight: bold;
+              text-shadow: 0 0 24px rgba(233,207,143,.45); }
+  header .en { margin-top: 10px; font-size: 13px; letter-spacing: 6px; color: #b89b5e;
+               font-family: Georgia,serif; }
+  .hint { position: absolute; bottom: 150px; left: 50%; transform: translateX(-50%);
+          padding: 10px 26px; border: 1px solid rgba(212,175,106,.55); border-radius: 999px;
+          background: rgba(7,11,22,.55); backdrop-filter: blur(6px);
+          font-size: 16px; letter-spacing: 2px; white-space: nowrap;
+          box-shadow: 0 0 18px rgba(212,175,106,.18); }
+  #again { position: absolute; bottom: 84px; left: 50%; transform: translateX(-50%);
+           pointer-events: auto; cursor: pointer;
+           padding: 12px 42px; font-size: 17px; letter-spacing: 4px; text-indent: 4px;
+           font-family: inherit; color: #0b1327;
+           background: linear-gradient(135deg,#f0d894,#d4af6a);
+           border: none; border-radius: 999px;
+           box-shadow: 0 4px 26px rgba(212,175,106,.45);
+           opacity: 0; transition: opacity .8s ease; }
+  #again.show { opacity: 1; }
+  #again:active { transform: translateX(-50%) scale(.96); }
+  footer { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center;
+           font-size: 12px; letter-spacing: 1px; color: rgba(184,155,94,.65); }
+  #fallback { position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+              background: #070b16; color: #e9cf8f; font-size: 17px; z-index: 20;
+              text-align: center; padding: 0 30px; line-height: 1.8; }
+  @media (max-width: 600px) {
+    header h1 { font-size: 32px; letter-spacing: 10px; text-indent: 10px; }
+    .hint { font-size: 13px; bottom: 140px; padding: 8px 18px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div class="ui">
+  <header>
+    <h1>答案之书</h1>
+    <p class="en">THE BOOK OF ANSWERS</p>
+  </header>
+  <div id="hint" class="hint">心中默念你的问题，然后点击书本</div>
+  <button id="again">✦ 再抽一次 ✦</button>
+  <footer>致敬 Carol Bolt《The Book of Answers》 · 本站答案为原创演绎</footer>
+</div>
+<div id="fallback">抱歉，你的浏览器不支持 WebGL，无法呈现 3D 答案之书。<br>请换一个现代浏览器再试。</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="answers.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
