@@ -559,4 +559,9 @@
     renderer.render(scene, camera);
   }
   animate();
+
+  // 演示模式：?demo=1 自动开始仪式（用于截图调试）
+  if (/(?:\?|&)demo=1/.test(window.location.search)) {
+    setTimeout(function () { openBook(); }, 1200);
+  }
 })();
